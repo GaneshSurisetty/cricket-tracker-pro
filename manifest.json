@@ -1,0 +1,10 @@
+{
+  "name": "Cricket Tracker Pro",
+  "short_name": "Cricket Tracker",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f4f7f2",
+  "theme_color": "#12372a",
+  "description": "Mobile cricket batting and bowling performance tracker",
+  "icons": []
+}

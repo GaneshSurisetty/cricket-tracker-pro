@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#12372a" />
+  <title>Cricket Tracker Pro</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <p class="eyebrow">PERSONAL PERFORMANCE</p>
+      <h1>Cricket Tracker Pro</h1>
+    </div>
+    <button id="installBtn" class="ghost hidden">Install</button>
+  </header>
+
+  <main id="app"></main>
+
+  <nav class="bottom-nav" aria-label="Primary navigation">
+    <button data-route="home" class="active">Home</button>
+    <button data-route="new">New Match</button>
+    <button data-route="history">History</button>
+    <button data-route="analysis">Analysis</button>
+  </nav>
+
+  <template id="groundTemplate">
+    <svg class="ground-map" viewBox="0 0 360 360" role="img" aria-label="Cricket ground map">
+      <circle cx="180" cy="180" r="166" class="outfield" />
+      <circle cx="180" cy="180" r="105" class="inner-circle" />
+      <rect x="165" y="105" width="30" height="150" rx="5" class="pitch" />
+      <line x1="180" y1="180" x2="180" y2="28" class="axis" />
+      <line x1="180" y1="180" x2="306" y2="82" class="axis" />
+      <line x1="180" y1="180" x2="338" y2="180" class="axis" />
+      <line x1="180" y1="180" x2="306" y2="278" class="axis" />
+      <line x1="180" y1="180" x2="180" y2="332" class="axis" />
+      <line x1="180" y1="180" x2="54" y2="278" class="axis" />
+      <line x1="180" y1="180" x2="22" y2="180" class="axis" />
+      <line x1="180" y1="180" x2="54" y2="82" class="axis" />
+      <g class="zones">
+        <path data-zone="straight" d="M150 22 A166 166 0 0 1 210 22 L192 112 A70 70 0 0 0 168 112 Z" />
+        <path data-zone="cover" d="M212 23 A166 166 0 0 1 316 88 L230 143 A70 70 0 0 0 193 112 Z" />
+        <path data-zone="point" d="M318 90 A166 166 0 0 1 346 178 L250 178 A70 70 0 0 0 231 145 Z" />
+        <path data-zone="third-man" d="M346 182 A166 166 0 0 1 316 270 L230 217 A70 70 0 0 0 250 182 Z" />
+        <path data-zone="fine-leg" d="M314 273 A166 166 0 0 1 210 338 L192 248 A70 70 0 0 0 229 219 Z" />
+        <path data-zone="long-on" d="M208 338 A166 166 0 0 1 150 338 L168 248 A70 70 0 0 0 192 248 Z" />
+        <path data-zone="mid-wicket" d="M148 337 A166 166 0 0 1 44 272 L130 217 A70 70 0 0 0 167 248 Z" />
+        <path data-zone="square-leg" d="M42 270 A166 166 0 0 1 14 182 L110 182 A70 70 0 0 0 129 215 Z" />
+        <path data-zone="behind-square" d="M14 178 A166 166 0 0 1 44 90 L130 143 A70 70 0 0 0 110 178 Z" />
+        <path data-zone="long-off" d="M46 87 A166 166 0 0 1 148 23 L168 112 A70 70 0 0 0 131 141 Z" />
+      </g>
+      <g class="labels">
+        <text x="180" y="48">Straight</text>
+        <text x="265" y="86">Cover</text>
+        <text x="315" y="158">Point</text>
+        <text x="294" y="241">Third man</text>
+        <text x="247" y="303">Fine leg</text>
+        <text x="180" y="320">Long on</text>
+        <text x="93" y="301">Mid-wicket</text>
+        <text x="49" y="225">Square leg</text>
+        <text x="52" y="145">Behind square</text>
+        <text x="97" y="76">Long off</text>
+      </g>
+      <g class="markers"></g>
+    </svg>
+  </template>
+
+  <template id="pitchTemplate">
+    <svg class="pitch-map" viewBox="0 0 260 420" role="img" aria-label="Cricket pitch line and length map">
+      <rect x="35" y="15" width="190" height="390" rx="14" class="pitch-bg" />
+      <line x1="35" y1="70" x2="225" y2="70" class="crease" />
+      <line x1="35" y1="350" x2="225" y2="350" class="crease" />
+      <line x1="98" y1="15" x2="98" y2="405" class="line-guide" />
+      <line x1="162" y1="15" x2="162" y2="405" class="line-guide" />
+      <g class="pitch-zones">
+        <rect data-zone="full-toss" x="35" y="15" width="190" height="55" />
+        <rect data-zone="yorker" x="35" y="70" width="190" height="45" />
+        <rect data-zone="full" x="35" y="115" width="190" height="70" />
+        <rect data-zone="good-length" x="35" y="185" width="190" height="85" />
+        <rect data-zone="back-of-length" x="35" y="270" width="190" height="60" />
+        <rect data-zone="short" x="35" y="330" width="190" height="75" />
+      </g>
+      <g class="pitch-labels">
+        <text x="130" y="47">Full toss</text>
+        <text x="130" y="98">Yorker</text>
+        <text x="130" y="153">Full</text>
+        <text x="130" y="230">Good length</text>
+        <text x="130" y="303">Back of length</text>
+        <text x="130" y="374">Short / bouncer</text>
+        <text x="66" y="398">Leg</text><text x="130" y="398">Middle</text><text x="194" y="398">Off</text>
+      </g>
+      <g class="markers"></g>
+    </svg>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
